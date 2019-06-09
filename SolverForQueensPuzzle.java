@@ -53,21 +53,41 @@ public class SolverForQueensPuzzle {
          that starts -- and ends -- with that board.
      */
     private void recordSolutionsStarted() {
+	    System.out.println( nBoardsConsidered);
 
         // Which has been requested, a base case or recursive case?
             // your code here
+	if (inProgress.accept()){
             // action(s) for base case(s)
-            System.out.println( "  for debugging: base case detected for..."
-                              + System.lineSeparator()
-                              + inProgress
-                              );
-
+	    nBoardsConsidered++;
+	    solutions.add(inProgress);
+	System.out.println( "  for debugging: base case detected for..."
+			    + System.lineSeparator()
+			    + inProgress
+			    );
+	}
+	else {
             // action for recursive cases
             // your code here
+	    for (int i = 0;
+		 i < inProgress.ranks();
+		 i++){
+		inProgress.populate(i);
+		if (!inProgress.lastIsNg()){
+		    recordSolutionsStarted();
+		}
+		else {
+		    inProgress.depopulate();
+		    if (i == inProgress.ranks())
+			inProgress.depopulate();
+		}
+		nBoardsConsidered++;
+	    }
             System.out.println( "  for debugging: recursive case detected for..."
                               + System.lineSeparator()
                               + inProgress
                               );
+	}
     }
 
 
@@ -81,7 +101,6 @@ public class SolverForQueensPuzzle {
             // shorthand in NEW with generics: omit the type!
             // The compiler assumes the same type as the variable.
             // The authors of the compiler support NTTSTT !
-
         inProgress = new BoardForQueensPuzzle( size);
         recordSolutionsStarted(); // "started" with an empty board
     }
