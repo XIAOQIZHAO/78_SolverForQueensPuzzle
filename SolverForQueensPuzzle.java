@@ -53,20 +53,20 @@ public class SolverForQueensPuzzle {
          that starts -- and ends -- with that board.
      */
     private void recordSolutionsStarted() {
-        // Which has been requested, a base case or recursive case?
-            // your code here
 	if (inProgress.accept()){
-            // action(s) for base case(s)
 	    nBoardsConsidered++;
-	    solutions.add(inProgress);
-	System.out.println( "  for debugging: base case detected for..."
-			    + System.lineSeparator()
-			    + inProgress
-			    );
+	    BoardForQueensPuzzle copy = new BoardForQueensPuzzle( inProgress);
+	    System.out.println(copy + "AAAAAAAAAAa");
+	    solutions.add(copy);
+	    //not add (nBoardsConsidered++, inProgress)
+	    //bc number of solutions != n
+	    //add copy of inProgress bc continue finding other solutions
+	// System.out.println( "  for debugging: base case detected for..."
+	// 		    + System.lineSeparator()
+	// 		    + inProgress
+	// 		    );
 	}
 	else {
-            // action for recursive cases
-            // your code here
 	    for (int i = 0;
 		 i < inProgress.ranks();
 		 i++){
@@ -79,13 +79,18 @@ public class SolverForQueensPuzzle {
 		}
 		nBoardsConsidered++;
 	    
-            System.out.println( "  for debugging: recursive case detected for..."
-                              + System.lineSeparator()
-                              + inProgress
-                              );
+            // System.out.println( "  for debugging: recursive case detected for..."
+            //                   + System.lineSeparator()
+            //                   + inProgress
+            //                   );
 	    }
 	}
 	inProgress.depopulate();
+	// important - depopulate after every base/recursive case
+	// bc every time a base case works, there's no other solutions on this rank
+	// and when you get out of the loop
+	// the current queen on the previous rank has been checked completely
+	// so depopulate that queen so that the previous loop can move on
     }
 
 
