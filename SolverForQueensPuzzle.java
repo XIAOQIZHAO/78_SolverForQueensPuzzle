@@ -61,6 +61,7 @@ public class SolverForQueensPuzzle {
             // action(s) for base case(s)
 	    nBoardsConsidered++;
 	    solutions.add(inProgress);
+	    inProgress.depopulate();
 	System.out.println( "  for debugging: base case detected for..."
 			    + System.lineSeparator()
 			    + inProgress
@@ -78,8 +79,6 @@ public class SolverForQueensPuzzle {
 		}
 		else {
 		    inProgress.depopulate();
-		    if (i == inProgress.ranks() - 1)
-			inProgress.depopulate();
 		}
 		nBoardsConsidered++;
 	    }
