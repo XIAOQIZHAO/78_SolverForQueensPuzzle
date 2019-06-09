@@ -26,9 +26,14 @@ public class BoardForQueensPuzzle {
      */
     public BoardForQueensPuzzle( BoardForQueensPuzzle old) {
 	this.lastRankFilled = old.lastRankFilled;
-	this.filesWithQueens = old.filesWithQueens;
+	this.filesWithQueens = new int[old.filesWithQueens.length];
+	for (int i = 0; i < this.filesWithQueens.length; i++)
+	    this.filesWithQueens[i] = old.filesWithQueens[i];
     }
 
+
+
+    
 
 
     // ----- skeletal code below here needs no modification -----
@@ -54,7 +59,6 @@ public class BoardForQueensPuzzle {
     /**
       @return the boolean value of the statement
               "The last-added queen introduced a conflict."
-
       @precondition: Before the latest queen was added,
                      no queen attacked another.
      */
@@ -90,12 +94,10 @@ public class BoardForQueensPuzzle {
     /**
       @return the boolean value of the statement...
                 "The board is fully and legally populated."
-
       precondition: All ranks except possibly the last-filled
         are populated legally. (That is, considering only the
         ranks before the last-filled rank, no queen attacks
         another.
-
         This method checks the last-filled rank.
      */
     public boolean accept() {
@@ -148,6 +150,10 @@ public class BoardForQueensPuzzle {
               ? "unpopulated"
               : "populated through rank " + lastRankFilled
             )
+          + ", in board with ID "
+          + String.format( "%x", this.hashCode())
+          + " with filesWithQueens "
+          + String.format( "%x", filesWithQueens.hashCode())
           + System.lineSeparator();
 
         // short-circuit the picture for a zero-sized board

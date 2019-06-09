@@ -13,8 +13,10 @@ public class SolverForQueensPuzzle {
 
     ArrayList< BoardForQueensPuzzle> solutions;
     BoardForQueensPuzzle inProgress; // for finding the next solution
-    int nBoardsConsidered;    /* number of boards evaluated,
+    long nBoardsConsidered;    /* number of boards evaluated,
                including incompletely-full and illegal boards */
+    long startAt;
+    double elapsedSeconds;
 
     /**
       Augment @solutions with all n-queens solutions that start with
@@ -56,7 +58,6 @@ public class SolverForQueensPuzzle {
 	if (inProgress.accept()){
 	    nBoardsConsidered++;
 	    BoardForQueensPuzzle copy = new BoardForQueensPuzzle( inProgress);
-	    System.out.println(copy + "AAAAAAAAAAa");
 	    solutions.add(copy);
 	    //not add (nBoardsConsidered++, inProgress)
 	    //bc number of solutions != n
@@ -105,21 +106,33 @@ public class SolverForQueensPuzzle {
             // The compiler assumes the same type as the variable.
             // The authors of the compiler support NTTSTT !
         inProgress = new BoardForQueensPuzzle( size);
+        startAt = System.currentTimeMillis();
         recordSolutionsStarted(); // "started" with an empty board
+        elapsedSeconds =   (System.currentTimeMillis() - startAt)
+                         / 1000.;
     }
 
 
     /**
-      @return a string representation of all solutions
+      @return a string representation of solutions, with a cap
+              on the number of boards pictured.
+              @maxBoardPics <  0  => show all
+                            otherwise, show up to @maxBoardPics
+                            So @maxBoardPics == 0  => show none
      */
-    public String toString() {
-        String pic = solutions.size()
+    public String toString( int maxBoardPics) {
+        String pic = String.format("%,d", solutions.size())
                    + " solutions found, after considering "
                    + String.format("%,d", nBoardsConsidered)
-                   + " boards"
-                   + System.lineSeparator();
-        for( BoardForQueensPuzzle b : solutions)
-            pic += b;
+                   + " boards in "
+                   + elapsedSeconds + " seconds"
+                   ;
+
+        int pictured = 0;
+        for( BoardForQueensPuzzle b : solutions) {
+            if( pictured++ == maxBoardPics) break;
+            pic += System.lineSeparator() + b;
+        }
         return pic;
     }
 }

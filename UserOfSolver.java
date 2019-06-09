@@ -1,18 +1,18 @@
 /**
   test SolverForQueensPuzzle
 
-  command line argument: the width of biggest board
-  to test, like...
-      > java UserOfSolver 4
-  10 has a pause; 11 is tolerable; 12 requires patience
+  command line arguments:
+    o  the width of biggest board
+    o  (optional) max number of solutions to show
  */
 
 public class UserOfSolver {
+    static int maxBoardPics;  // control output
 
     public static void main(String[] commandLine) {
         System.out.println();
 
-        // command line argument is required
+        // Specify board size in command line argument
         if( commandLine.length < 1) {
             System.out.println(
                 "Error: missing command-line argument."
@@ -24,6 +24,13 @@ public class UserOfSolver {
               );
             System.exit(1);
         }
+
+        // record any limit of the number of boards to show
+        if( commandLine.length < 2)
+            // default: show all boards
+            maxBoardPics = -1;
+        else // a cap was specified
+            maxBoardPics = Integer.parseInt( commandLine[1]);
 
         // tests
         for( int boardSize = 0
@@ -38,19 +45,19 @@ public class UserOfSolver {
      */
     private static void oneTest( int size
                                ) {
+        String puzzle = size + "x" + size + " board";
 
         /* Announce the board size before invoking the
            Solver, so that the announcement precedes any
            debugging output.
          */
-        System.out.println( size + "x" + size + " board");
+        System.out.println( puzzle + " starting");
 
-        long startAt = System.currentTimeMillis();
-        System.out.println(
-            new SolverForQueensPuzzle( size)
-          + "elapsed time: "
-          + (System.currentTimeMillis() - startAt) / 1000.
-          + " seconds" + System.lineSeparator()
-          );
+        SolverForQueensPuzzle solutions =
+           new SolverForQueensPuzzle( size);
+
+        System.out.println( puzzle + ": "
+                          + solutions.toString( maxBoardPics)
+                          + System.lineSeparator());
     }
 }
