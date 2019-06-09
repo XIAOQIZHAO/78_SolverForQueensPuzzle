@@ -78,7 +78,7 @@ public class SolverForQueensPuzzle {
 		}
 		else {
 		    inProgress.depopulate();
-		    if (i == inProgress.ranks())
+		    if (i == inProgress.ranks() - 1)
 			inProgress.depopulate();
 		}
 		nBoardsConsidered++;
