@@ -62,28 +62,30 @@ public class SolverForQueensPuzzle {
 	    //not add (nBoardsConsidered++, inProgress)
 	    //bc number of solutions != n
 	    //add copy of inProgress bc continue finding other solutions
-	// System.out.println( "  for debugging: base case detected for..."
-	// 		    + System.lineSeparator()
-	// 		    + inProgress
-	// 		    );
+	    // System.out.println( "  for debugging: base case detected for..."
+	    //		    + System.lineSeparator()
+	    //		    + inProgress
+	    //		    );
 	}
 	else {
 	    for (int i = 0;
 		 i < inProgress.ranks();
 		 i++){
 		inProgress.populate(i);
+	    
+		//  System.out.println( "  for debugging: recursive case detected for..."
+		//    + System.lineSeparator()
+		//    + inProgress
+		//   );
+		// print it out before depopulate the most recent one
 		if (!inProgress.lastIsNg()){
 		    recordSolutionsStarted();
 		}
 		else {
 		    inProgress.depopulate();
+		    nBoardsConsidered++; // should be here. For every depopulated queen, it means finishing considering ONE board as bad
+		    // not to be added afterwards since that account for depopulating one upper queen, which has many boards considered for it
 		}
-		nBoardsConsidered++;
-	    
-            // System.out.println( "  for debugging: recursive case detected for..."
-            //                   + System.lineSeparator()
-            //                   + inProgress
-            //                   );
 	    }
 	}
 	inProgress.depopulate();
