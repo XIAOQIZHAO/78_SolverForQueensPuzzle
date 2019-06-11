@@ -83,9 +83,13 @@ public class SolverForQueensPuzzle {
 		}
 		else {
 		    inProgress.depopulate();
-		    nBoardsConsidered++; // should be here. For every depopulated queen, it means finishing considering ONE board as bad
+		    // nBoardsConsidered++;
+		    // if I want the number of accepted + illegal boards,
+		    // should be here. For every depopulated queen, it means finishing considering ONE board as bad
 		    // not to be added afterwards since that account for depopulating one upper queen, which has many boards considered for it
 		}
+		nBoardsConsidered++;
+		// here if I want legal incompletely-full boards to be counted
 	    }
 	}
 	inProgress.depopulate();

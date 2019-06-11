@@ -3,7 +3,7 @@
 ## Xiaoqi's remarks
 
 ### citations / worked with / received help from
-
+Kyle (pd 7), as I didn't record the number of incompletely-full but legal boards and illegal boards, but only the number of accepted boards and illegal boards at first. I saw Kyle's result of nBoardsConsidered after running for a 11*11 board. I ran my own and found out the error.
 
 ## Holmes's remarks
 
